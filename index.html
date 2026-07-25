@@ -233,8 +233,16 @@
   .hotline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
   .hotline{ background:var(--ink);color:#fff;border-radius:12px;padding:18px 20px; }
   .hotline .h-name{font-size:0.85rem;color:#B9C6CB;margin-bottom:6px;}
-  .hotline .h-num{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:600;color:var(--gold);}
+  .hotline .h-num{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:600;color:var(--gold);text-decoration:none;display:inline-block;}
+  .hotline .h-num:hover{text-decoration:underline;}
   .hotline .h-desc{font-size:0.82rem;color:#9FB0B8;margin-top:6px;}
+  .hotlines-top{padding-top:32px;}
+  .hotline-note{
+    margin-top:16px;font-size:0.85rem;line-height:1.5;color:var(--ink-soft);
+    border-top:1px solid var(--line);padding-top:14px;
+  }
+  .hotline-note strong{color:var(--brick);}
+  .hotline-note + .hotline-note{border-top:none;padding-top:0;margin-top:8px;}
 
   footer{ background:var(--paper);border-top:1px solid var(--line);
     padding:40px 0;font-size:0.85rem;color:var(--ink-soft); }
@@ -263,12 +271,12 @@
   <div class="topbar-inner">
     <div class="brand"><span class="brand-mark" aria-hidden="true"></span> Latin Lives Matter</div>
     <nav class="top-nav" aria-label="Section navigation">
+      <a href="#hotlines" data-i18n="nav_hotlines">Hotlines</a>
       <a href="#rights" data-i18n="nav_rights">Know Your Rights</a>
       <a href="#warrants" data-i18n="nav_warrants">ICE Rules</a>
+      <a href="#updates" data-i18n="nav_updates">Updates</a>
       <a href="#finder" data-i18n="nav_finder">Find Help</a>
       <a href="#prepare" data-i18n="nav_prepare">Prepare</a>
-      <a href="#updates" data-i18n="nav_updates">Updates</a>
-      <a href="#hotlines" data-i18n="nav_hotlines">Hotlines</a>
     </nav>
     <div class="topbar-right">
       <div class="lang-toggle" role="group" aria-label="Language / Idioma">
@@ -288,6 +296,40 @@
 </div>
 
 <main id="main">
+
+  <section id="hotlines" class="alt hotlines-top">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="hot_tag">Call now</span>
+        <h2 data-i18n="hot_h2">Emergency hotlines</h2>
+        <p data-i18n="hot_p">Free to call. Some accept texts as well — good for moments when talking isn't safe or possible. Tap a number below to call directly.</p>
+      </div>
+      <div class="hotline-grid">
+        <div class="hotline">
+          <div class="h-name" data-i18n="hot1_name">United We Dream — report activity</div>
+          <a class="h-num" href="tel:+18443631423">1-844-363-1423</a>
+          <div class="h-desc" data-i18n="hot1_desc">Or text 877877. 24/7, all states, free.</div>
+        </div>
+        <div class="hotline">
+          <div class="h-name">Immigrant Defense Project Helpline</div>
+          <a class="h-num" href="tel:+12127256422">212-725-6422</a>
+          <div class="h-desc" data-i18n="hot2_desc">For people detained or their loved ones.</div>
+        </div>
+        <div class="hotline">
+          <div class="h-name">NAKASEC Hotline</div>
+          <a class="h-num" href="tel:+18445003222">1-844-500-3222</a>
+          <div class="h-desc" data-i18n="hot3_desc">English and Korean support.</div>
+        </div>
+        <div class="hotline">
+          <div class="h-name" data-i18n="hot4_name">General community services</div>
+          <a class="h-num" href="tel:211" data-i18n="hot4_num">Dial 211</a>
+          <div class="h-desc" data-i18n="hot4_desc">Free, confidential referrals to local help, day or night.</div>
+        </div>
+      </div>
+      <div class="hotline-note" data-i18n="hot_police_note">Worried about ICE specifically? Local police cooperation with ICE varies a lot by city and state — some notify ICE, others don't. For immigration enforcement situations, many organizers recommend starting with the numbers above rather than local police.</div>
+      <div class="hotline-note hotline-911" data-i18n="hot_911">For a life-threatening emergency — a fire, a medical emergency, or violence in progress — these hotlines can't dispatch help. Call <strong>911</strong> for that.</div>
+    </div>
+  </section>
 
   <section class="top-alert">
     <div class="wrap">
@@ -478,37 +520,6 @@
     </div>
   </section>
 
-  <section id="hotlines" class="alt">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="tag" data-i18n="hot_tag">Save these</span>
-        <h2 data-i18n="hot_h2">Emergency hotlines</h2>
-        <p data-i18n="hot_p">Free to call. Some accept texts as well — good for moments when talking isn't safe or possible.</p>
-      </div>
-      <div class="hotline-grid">
-        <div class="hotline">
-          <div class="h-name" data-i18n="hot1_name">United We Dream — report activity</div>
-          <div class="h-num">1-844-363-1423</div>
-          <div class="h-desc" data-i18n="hot1_desc">Or text 877877. 24/7, all states, free.</div>
-        </div>
-        <div class="hotline">
-          <div class="h-name">Immigrant Defense Project Helpline</div>
-          <div class="h-num">212-725-6422</div>
-          <div class="h-desc" data-i18n="hot2_desc">For people detained or their loved ones.</div>
-        </div>
-        <div class="hotline">
-          <div class="h-name">NAKASEC Hotline</div>
-          <div class="h-num">1-844-500-3222</div>
-          <div class="h-desc" data-i18n="hot3_desc">English and Korean support.</div>
-        </div>
-        <div class="hotline">
-          <div class="h-name" data-i18n="hot4_name">General community services</div>
-          <div class="h-num" data-i18n="hot4_num">Dial 211</div>
-          <div class="h-desc" data-i18n="hot4_desc">Free, confidential referrals to local help, day or night.</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
 </main>
 
@@ -588,9 +599,11 @@ en: {
   chk6:"<strong>Practice your rights out loud</strong> with your household — what to say, and just as importantly, what not to sign or say.",
   chk7:'<strong>Post a "no consent to enter" notice</strong> near your door in the languages your household speaks, and know that it\'s not a barrier by itself — you still need to say it aloud.',
   chk8:"<strong>Never sign anything you don't fully understand</strong> without a lawyer present — including anything presented as routine paperwork.",
-  chk9:"<strong>Save a hotline number</strong> in your phone under a name you'll recognize in a hurry — see the hotlines below.",
+  chk9:"<strong>Save a hotline number</strong> in your phone under a name you'll recognize in a hurry — see the hotlines at the top of this page.",
   chk10:"<strong>Look up your consulate's phone number</strong> — you have the right to contact your country's consulate if detained.",
-  hot_tag:"Save these", hot_h2:"Emergency hotlines", hot_p:"Free to call. Some accept texts as well — good for moments when talking isn't safe or possible.",
+  hot_tag:"Call now", hot_h2:"Emergency hotlines", hot_p:"Free to call. Some accept texts as well — good for moments when talking isn't safe or possible. Tap a number below to call directly.",
+  hot_911:'For a life-threatening emergency — a fire, a medical emergency, or violence in progress — these hotlines can\'t dispatch help. Call <strong>911</strong> for that.',
+  hot_police_note:"Worried about ICE specifically? Local police cooperation with ICE varies a lot by city and state — some notify ICE, others don't. For immigration enforcement situations, many organizers recommend starting with the numbers above rather than local police.",
   hot1_name:"United We Dream — report activity", hot1_desc:"Or text 877877. 24/7, all states, free.",
   hot2_desc:"For people detained or their loved ones.", hot3_desc:"English and Korean support.",
   hot4_name:"General community services", hot4_num:"Dial 211", hot4_desc:"Free, confidential referrals to local help, day or night.",
@@ -663,9 +676,11 @@ es: {
   chk6:"<strong>Practica tus derechos en voz alta</strong> con tu hogar — qué decir, y también qué no firmar ni decir.",
   chk7:'<strong>Coloca un aviso de "no doy consentimiento para entrar"</strong> cerca de tu puerta en los idiomas que se hablan en tu hogar, y ten en cuenta que no es una barrera por sí sola — igual debes decirlo en voz alta.',
   chk8:"<strong>Nunca firmes algo que no entiendas completamente</strong> sin un abogado presente — incluso si te dicen que es papeleo de rutina.",
-  chk9:"<strong>Guarda un número de línea de ayuda</strong> en tu teléfono con un nombre que reconozcas rápido — mira las líneas de ayuda abajo.",
+  chk9:"<strong>Guarda un número de línea de ayuda</strong> en tu teléfono con un nombre que reconozcas rápido — mira las líneas de ayuda en la parte superior de esta página.",
   chk10:"<strong>Busca el número de tu consulado</strong> — tienes derecho a contactar al consulado de tu país si eres detenido.",
-  hot_tag:"Guarda estos", hot_h2:"Líneas de ayuda de emergencia", hot_p:"Llamar es gratis. Algunas también aceptan mensajes de texto — útil para momentos en que hablar no es seguro o posible.",
+  hot_tag:"Llama ahora", hot_h2:"Líneas de ayuda de emergencia", hot_p:"Llamar es gratis. Algunas también aceptan mensajes de texto — útil para momentos en que hablar no es seguro o posible. Toca un número para llamar directamente.",
+  hot_911:'Para una emergencia potencialmente mortal — un incendio, una emergencia médica o violencia en curso — estas líneas no pueden enviar ayuda. Llama al <strong>911</strong> para eso.',
+  hot_police_note:"¿Te preocupa específicamente ICE? La cooperación de la policía local con ICE varía mucho según la ciudad y el estado — algunas notifican a ICE, otras no. Para situaciones de aplicación de inmigración, muchos organizadores recomiendan empezar con los números de arriba en lugar de la policía local.",
   hot1_name:"United We Dream — reportar actividad", hot1_desc:"O envía un mensaje de texto al 877877. Disponible 24/7 en todos los estados, gratis.",
   hot2_desc:"Para personas detenidas o sus seres queridos.", hot3_desc:"Apoyo en inglés y coreano.",
   hot4_name:"Servicios comunitarios generales", hot4_num:"Marca el 211", hot4_desc:"Referencias gratuitas y confidenciales a ayuda local, día y noche.",

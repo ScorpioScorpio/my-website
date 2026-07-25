@@ -185,6 +185,27 @@
   .check-item p{margin:0;font-size:0.95rem;color:var(--ink-soft);}
   .check-item strong{color:var(--ink);}
 
+  .update-list{display:grid;gap:14px;}
+  .update-card{
+    background:var(--paper);border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;display:flex;flex-direction:column;gap:8px;
+  }
+  .update-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .update-badge{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;
+    font-weight:700;padding:4px 9px;border-radius:100px;
+  }
+  .update-badge.eo{background:rgba(181,73,61,0.12);color:var(--brick);}
+  .update-badge.news{background:rgba(46,110,98,0.12);color:var(--teal);}
+  .update-date{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--ink-soft);}
+  .update-card h4{margin:0;font-family:'Fraunces',serif;font-size:1.08rem;font-weight:600;}
+  .update-card p{margin:0;color:var(--ink-soft);font-size:0.94rem;}
+  .update-source{font-size:0.8rem;color:var(--ink-soft);}
+  .update-source a{color:var(--teal);font-weight:600;text-decoration:none;}
+  .update-source a:hover{text-decoration:underline;}
+  .update-generated{margin-top:16px;font-size:0.8rem;color:var(--ink-soft);}
+  .finder-msg{color:var(--ink-soft);font-size:0.92rem;}
+
   .hotline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
   .hotline{ background:var(--ink);color:#fff;border-radius:12px;padding:18px 20px; }
   .hotline .h-name{font-size:0.85rem;color:#B9C6CB;margin-bottom:6px;}
@@ -210,6 +231,7 @@
       <a href="#warrants" data-i18n="nav_warrants">ICE Rules</a>
       <a href="#finder" data-i18n="nav_finder">Find Help</a>
       <a href="#prepare" data-i18n="nav_prepare">Prepare</a>
+      <a href="#updates" data-i18n="nav_updates">Updates</a>
       <a href="#hotlines" data-i18n="nav_hotlines">Hotlines</a>
     </nav>
     <div class="topbar-right">
@@ -346,6 +368,20 @@
     </div>
   </section>
 
+  <section id="updates">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag" data-i18n="upd_tag">Updated automatically</span>
+        <h2 data-i18n="upd_h2">Latest immigration news &amp; executive orders</h2>
+        <p data-i18n="upd_p">Pulled directly from the official Federal Register and immigration-focused newsrooms, then summarized in plain language. Always tap through to the original source for the full text.</p>
+      </div>
+      <div id="updatesList" class="update-list">
+        <p class="finder-msg" id="updatesLoading" data-i18n="upd_loading">Loading latest updates…</p>
+      </div>
+      <p class="update-generated" id="updatesGeneratedAt"></p>
+    </div>
+  </section>
+
   <section id="finder" class="alt">
     <div class="wrap">
       <div class="finder">
@@ -445,7 +481,15 @@
 const I18N = {
 en: {
   _title:"Latin Lives Matter — Know Your Rights, Find Legal Help",
-  skip_link:"Skip to content", nav_rights:"Know Your Rights", nav_warrants:"ICE Rules", nav_finder:"Find Help", nav_prepare:"Prepare", nav_hotlines:"Hotlines",
+  skip_link:"Skip to content", nav_rights:"Know Your Rights", nav_warrants:"ICE Rules", nav_finder:"Find Help", nav_prepare:"Prepare", nav_hotlines:"Hotlines", nav_updates:"Updates",
+  upd_tag:"Updated automatically", upd_h2:"Latest immigration news & executive orders",
+  upd_p:"Pulled directly from the official Federal Register and immigration-focused newsrooms, then summarized in plain language. Always tap through to the original source for the full text.",
+  upd_loading:"Loading latest updates…",
+  upd_empty:"No updates yet — check back soon, or read the sources directly at federalregister.gov.",
+  upd_error:"Couldn't load the latest updates right now. Please check back shortly.",
+  upd_read_source:"Read full source →",
+  upd_generated:"Updates last refreshed {time}",
+  upd_badge_eo:"Executive order", upd_badge_news:"News",
   quick_exit:"Quick exit",
   disclaimer:"This site shares general information, not legal advice. Laws and enforcement practices change and vary by state — always confirm your situation with a licensed attorney or accredited representative.",
   hero_eyebrow:"● Free · Confidential · No account needed",
@@ -510,7 +554,15 @@ en: {
 },
 es: {
   _title:"Latin Lives Matter — Conoce tus derechos, encuentra ayuda legal",
-  skip_link:"Saltar al contenido", nav_rights:"Conoce tus derechos", nav_warrants:"Reglas de ICE", nav_finder:"Buscar ayuda", nav_prepare:"Prepárate", nav_hotlines:"Líneas de ayuda",
+  skip_link:"Saltar al contenido", nav_rights:"Conoce tus derechos", nav_warrants:"Reglas de ICE", nav_finder:"Buscar ayuda", nav_prepare:"Prepárate", nav_hotlines:"Líneas de ayuda", nav_updates:"Noticias",
+  upd_tag:"Actualizado automáticamente", upd_h2:"Últimas noticias y órdenes ejecutivas de inmigración",
+  upd_p:"Tomado directamente del Registro Federal oficial y de medios especializados en inmigración, resumido en lenguaje sencillo. Siempre revisa la fuente original para el texto completo.",
+  upd_loading:"Cargando las últimas noticias…",
+  upd_empty:"Todavía no hay actualizaciones — vuelve pronto, o consulta las fuentes directamente en federalregister.gov.",
+  upd_error:"No pudimos cargar las últimas noticias en este momento. Por favor intenta de nuevo más tarde.",
+  upd_read_source:"Leer la fuente completa →",
+  upd_generated:"Última actualización: {time}",
+  upd_badge_eo:"Orden ejecutiva", upd_badge_news:"Noticia",
   quick_exit:"Salida rápida",
   disclaimer:"Este sitio comparte información general, no asesoría legal. Las leyes y prácticas de aplicación cambian y varían según el estado — siempre confirma tu situación con un abogado con licencia o un representante acreditado.",
   hero_eyebrow:"● Gratis · Confidencial · No necesitas cuenta",
@@ -705,6 +757,73 @@ function applyLang(lang){
   }catch(e){ /* ignore in sandboxed environments */ }
   if(lastSearch){ renderResults(lastSearch.stateAbbr, lastSearch.label, lang); }
   else { document.getElementById('locatedAs').textContent = t.find_results_default; }
+  renderUpdates(lang);
+}
+
+// ============== Live updates feed (data/updates.json) ==============
+let updatesData = null; // cached after first successful fetch
+
+async function loadUpdates(){
+  try{
+    const res = await fetch('data/updates.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('fetch failed: ' + res.status);
+    updatesData = await res.json();
+  }catch(e){
+    updatesData = {error:true};
+  }
+  renderUpdates(currentLang);
+}
+
+function formatUpdateDate(dateStr, lang){
+  if(!dateStr) return '';
+  try{
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString(lang==='es' ? 'es-ES' : 'en-US', {year:'numeric', month:'short', day:'numeric'});
+  }catch(e){ return dateStr; }
+}
+
+function renderUpdates(lang){
+  const t = I18N[lang];
+  const list = document.getElementById('updatesList');
+  const genEl = document.getElementById('updatesGeneratedAt');
+  if(!list) return;
+
+  if(updatesData === null){
+    list.innerHTML = `<p class="finder-msg">${t.upd_loading}</p>`;
+    genEl.textContent = '';
+    return;
+  }
+  if(updatesData.error){
+    list.innerHTML = `<p class="finder-msg">${t.upd_error}</p>`;
+    genEl.textContent = '';
+    return;
+  }
+  const items = updatesData.items || [];
+  if(items.length === 0){
+    list.innerHTML = `<p class="finder-msg">${t.upd_empty}</p>`;
+  } else {
+    list.innerHTML = items.map(item=>{
+      const title = lang === 'es' ? (item.title_es || item.title_en) : item.title_en;
+      const summary = lang === 'es' ? (item.summary_es || item.summary_en) : item.summary_en;
+      const badgeClass = item.type === 'executive_order' ? 'eo' : 'news';
+      const badgeText = item.type === 'executive_order' ? t.upd_badge_eo : t.upd_badge_news;
+      return `<div class="update-card">
+        <div class="update-top">
+          <span class="update-badge ${badgeClass}">${badgeText}</span>
+          <span class="update-date">${formatUpdateDate(item.date, lang)}</span>
+        </div>
+        <h4>${title || ''}</h4>
+        <p>${summary || ''}</p>
+        <div class="update-source">${item.source || ''} · <a href="${item.url}" target="_blank" rel="noopener">${t.upd_read_source}</a></div>
+      </div>`;
+    }).join('');
+  }
+  if(updatesData.generated_at){
+    const ts = new Date(updatesData.generated_at).toLocaleString(lang==='es' ? 'es-ES' : 'en-US');
+    genEl.textContent = t.upd_generated.replace('{time}', ts);
+  } else {
+    genEl.textContent = '';
+  }
 }
 
 document.getElementById('finderForm').addEventListener('submit', async function(e){
@@ -759,6 +878,7 @@ document.getElementById('finderForm').addEventListener('submit', async function(
     }
   }catch(e){}
   applyLang(initial);
+  loadUpdates();
 })();
 </script>
 </body>

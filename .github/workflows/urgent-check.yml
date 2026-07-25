@@ -1,0 +1,39 @@
+name: Check for urgent immigration alerts
+
+on:
+  schedule:
+    # Every 15 minutes. Cron is in UTC. Deliberately offset from update-feed.yml.
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  check-urgent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run urgent check
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python scripts/check_urgent.py
+
+      - name: Commit updated alert file if changed
+        run: |
+          git config user.name "feed-bot"
+          git config user.email "actions@github.com"
+          git pull --rebase
+          git add data/urgent.json
+          git diff --cached --quiet || git commit -m "Check for urgent immigration alerts [automated]"
+          git push

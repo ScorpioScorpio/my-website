@@ -35,7 +35,7 @@ jobs:
         run: |
           git config user.name "feed-bot"
           git config user.email "actions@github.com"
-          git pull --rebase
           git add data/updates.json
           git diff --cached --quiet || git commit -m "Update immigration news feed [automated]"
+          git pull --rebase
           git push

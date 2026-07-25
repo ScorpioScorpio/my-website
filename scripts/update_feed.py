@@ -79,11 +79,16 @@ def fetch_news():
             if not is_relevant(combined):
                 continue
             entry_id = entry.get("id") or entry.get("link")
+            published_parsed = entry.get("published_parsed")
+            if published_parsed:
+                date_str = datetime(*published_parsed[:6], tzinfo=timezone.utc).date().isoformat()
+            else:
+                date_str = datetime.now(timezone.utc).date().isoformat()
             items.append({
                 "id": f"news-{stable_id(entry_id)}",
                 "type": "news",
                 "title_en": title,
-                "date": entry.get("published", "")[:10] or datetime.now(timezone.utc).date().isoformat(),
+                "date": date_str,
                 "url": entry.get("link"),
                 "source": source_name,
                 "raw_text": summary_raw,

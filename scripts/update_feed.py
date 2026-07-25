@@ -160,11 +160,21 @@ def fetch_news():
             if not is_relevant(combined):
                 continue
             entry_id = entry.get("id") or entry.get("link")
+
+            # feedparser gives us a pre-parsed time struct when it can — use
+            # that instead of slicing the raw string, which is not reliably
+            # in YYYY-MM-DD format across feeds.
+            time_struct = entry.get("published_parsed") or entry.get("updated_parsed")
+            if time_struct:
+                date_str = datetime(*time_struct[:6], tzinfo=timezone.utc).date().isoformat()
+            else:
+                date_str = datetime.now(timezone.utc).date().isoformat()
+
             items.append({
                 "id": f"news-{abs(hash(entry_id))}",
                 "type": "news",
                 "title_en": title,
-                "date": entry.get("published", "")[:10] or datetime.now(timezone.utc).date().isoformat(),
+                "date": date_str,
                 "url": entry.get("link"),
                 "source": source_name,
                 "raw_text": summary_raw,

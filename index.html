@@ -141,6 +141,8 @@
   .warrant-box ul{margin:0;padding-left:20px;color:var(--ink-soft);font-size:0.94rem;}
   .warrant-box li{margin-bottom:6px;}
 
+  .top-alert{padding:22px 0 4px;}
+  .top-alert .callout:first-child{margin-top:0;}
   .callout{ border-radius:var(--radius);padding:20px 22px;margin-top:22px;
     background:rgba(181,73,61,0.08);border:1px solid rgba(181,73,61,0.3); font-size:0.95rem; }
   .callout strong{color:var(--brick);}
@@ -253,6 +255,13 @@
 
 <main id="main">
 
+  <section class="top-alert">
+    <div class="wrap">
+      <div class="callout" data-i18n="callout1"><strong>Recent development worth knowing:</strong> In January 2026, a DHS memo instructed ICE officers that they could enter homes using only an administrative warrant in certain circumstances. Immigrant-rights groups, including the ACLU, are challenging this in federal court, and it has not been settled. Until there's a definitive ruling, the safest practice remains: don't open the door unless a judicial warrant, signed by a judge and naming your address, is shown. If agents enter anyway, don't physically resist — stay calm, comply physically, and say clearly, "I do not consent to this entry."</div>
+      <div class="callout" style="margin-top:14px;" data-i18n="callout2"><strong>"Sensitive locations" are no longer protected.</strong> For years, ICE avoided enforcement at schools, hospitals, churches, and courthouses. That policy was rescinded in January 2025, so these locations are not currently off-limits. It's worth knowing this so you aren't caught off guard.</div>
+    </div>
+  </section>
+
   <section class="hero">
     <div class="wrap">
       <span class="eyebrow" data-i18n="hero_eyebrow">● Free · Confidential · No account needed</span>
@@ -344,9 +353,9 @@
         </div>
       </div>
 
-      <div class="callout" data-i18n="callout1"><strong>Recent development worth knowing:</strong> In January 2026, a DHS memo instructed ICE officers that they could enter homes using only an administrative warrant in certain circumstances. Immigrant-rights groups, including the ACLU, are challenging this in federal court, and it has not been settled. Until there's a definitive ruling, the safest practice remains: don't open the door unless a judicial warrant, signed by a judge and naming your address, is shown. If agents enter anyway, don't physically resist — stay calm, comply physically, and say clearly, "I do not consent to this entry."</div>
-
-      <div class="callout" style="margin-top:14px;" data-i18n="callout2"><strong>"Sensitive locations" are no longer protected.</strong> For years, ICE avoided enforcement at schools, hospitals, churches, and courthouses. That policy was rescinded in January 2025, so these locations are not currently off-limits. It's worth knowing this so you aren't caught off guard.</div>
+      <div class="callout" style="margin-top:22px;font-size:0.88rem;background:transparent;border:1px dashed var(--line);color:var(--ink-soft);">
+        <span data-i18n="warr_scroll_hint">Looking for the DHS memo and "sensitive locations" updates? They're now pinned at the top of the page for quick reference.</span>
+      </div>
 
       <div class="card-grid" style="margin-top:28px;">
         <div class="rcard">
@@ -506,6 +515,7 @@ en: {
   r6_num:"RIGHT · 06", r6_h:"Never show false documents", r6_p:"Don't lie or claim false citizenship — this can seriously harm your case. Staying silent is always safer than lying.", r6_say:"Say nothing, rather than something false.",
   warr_tag:"The legal limits on enforcement", warr_h2:"What ICE is — and isn't — allowed to do.",
   warr_p:"The single most important thing to check in any encounter is the kind of warrant an agent is holding. The two look similar but mean very different things.",
+  warr_scroll_hint:"Looking for the DHS memo and \"sensitive locations\" updates? They're now pinned at the top of the page for quick reference.",
   jud_label:"Judicial warrant", jud_h:"Signed by a judge",
   jud_li1:'Says "U.S. District Court" or a state court at the top', jud_li2:"Signed by a judge or magistrate", jud_li3:"Names a specific person and address",
   jud_li4:"<strong>This is what's required</strong> to enter your home or a private area without permission",
@@ -579,6 +589,7 @@ es: {
   r6_num:"DERECHO · 06", r6_h:"Nunca muestres documentos falsos", r6_p:"No mientas ni afirmes falsamente ser ciudadano — esto puede dañar seriamente tu caso. Guardar silencio siempre es más seguro que mentir.", r6_say:"Mejor no decir nada, que decir algo falso.",
   warr_tag:"Los límites legales de la aplicación de la ley", warr_h2:"Lo que ICE puede — y no puede — hacer.",
   warr_p:"Lo más importante que debes revisar en cualquier encuentro es el tipo de orden que tiene el agente. Las dos se ven parecidas, pero significan cosas muy distintas.",
+  warr_scroll_hint:"¿Buscas la información sobre el memorando del DHS y las \"ubicaciones sensibles\"? Ahora está fijada al principio de la página para que la encuentres rápido.",
   jud_label:"Orden judicial", jud_h:"Firmada por un juez",
   jud_li1:'Dice "Tribunal de Distrito de EE. UU." o un tribunal estatal en la parte superior', jud_li2:"Firmada por un juez o magistrado", jud_li3:"Nombra a una persona y dirección específicas",
   jud_li4:"<strong>Esto es lo que se requiere</strong> para entrar a tu casa o un área privada sin permiso",

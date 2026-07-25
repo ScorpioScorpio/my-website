@@ -47,6 +47,28 @@
   .skip-link{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:100;}
   .skip-link:focus{left:0;}
 
+  .urgent-banner{ background:var(--brick); color:#fff; }
+  .urgent-banner-inner{
+    display:flex;align-items:center;gap:12px;padding:12px 24px;flex-wrap:wrap;
+  }
+  .urgent-dot{
+    width:9px;height:9px;border-radius:50%;background:#fff;flex-shrink:0;
+    animation: urgent-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes urgent-pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+  @media (prefers-reduced-motion: reduce){ .urgent-dot{animation:none;} }
+  .urgent-text{flex:1;min-width:220px;font-size:0.92rem;line-height:1.4;}
+  .urgent-text strong{display:block;font-family:'Fraunces',serif;font-size:1rem;margin-bottom:2px;}
+  .urgent-text span{color:rgba(255,255,255,0.88);}
+  .urgent-link{
+    color:#fff;font-weight:700;font-size:0.88rem;text-decoration:underline;white-space:nowrap;flex-shrink:0;
+  }
+  .urgent-dismiss{
+    background:rgba(255,255,255,0.18);border:none;color:#fff;border-radius:6px;
+    width:26px;height:26px;cursor:pointer;font-size:0.85rem;flex-shrink:0;
+  }
+  .urgent-dismiss:hover{background:rgba(255,255,255,0.3);}
+
   .topbar{
     position:sticky;top:0;z-index:50;
     background:rgba(238,240,232,0.92);
@@ -224,6 +246,18 @@
 </head>
 <body>
 <a href="#main" class="skip-link" data-i18n="skip_link">Skip to content</a>
+
+<div id="urgentBanner" class="urgent-banner" style="display:none;" role="alert">
+  <div class="wrap urgent-banner-inner">
+    <span class="urgent-dot" aria-hidden="true"></span>
+    <div class="urgent-text">
+      <strong id="urgentBannerTitle"></strong>
+      <span id="urgentBannerSummary"></span>
+    </div>
+    <a id="urgentBannerLink" href="#" target="_blank" rel="noopener" class="urgent-link" data-i18n="upd_read_source">Read full source →</a>
+    <button id="urgentBannerDismiss" class="urgent-dismiss" data-i18n-aria="urgent_dismiss" aria-label="Dismiss">✕</button>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -499,6 +533,7 @@ en: {
   upd_read_source:"Read full source →",
   upd_generated:"Updates last refreshed {time}",
   upd_badge_eo:"Executive order", upd_badge_news:"News",
+  urgent_dismiss:"Dismiss", urgent_prefix:"New:",
   quick_exit:"Quick exit",
   disclaimer:"This site shares general information, not legal advice. Laws and enforcement practices change and vary by state — always confirm your situation with a licensed attorney or accredited representative.",
   hero_eyebrow:"● Free · Confidential · No account needed",
@@ -573,6 +608,7 @@ es: {
   upd_read_source:"Leer la fuente completa →",
   upd_generated:"Última actualización: {time}",
   upd_badge_eo:"Orden ejecutiva", upd_badge_news:"Noticia",
+  urgent_dismiss:"Cerrar", urgent_prefix:"Nuevo:",
   quick_exit:"Salida rápida",
   disclaimer:"Este sitio comparte información general, no asesoría legal. Las leyes y prácticas de aplicación cambian y varían según el estado — siempre confirma tu situación con un abogado con licencia o un representante acreditado.",
   hero_eyebrow:"● Gratis · Confidencial · No necesitas cuenta",
@@ -759,6 +795,10 @@ function applyLang(lang){
     const key = el.getAttribute('data-i18n-placeholder');
     if(t[key] !== undefined) el.placeholder = t[key];
   });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-aria');
+    if(t[key] !== undefined) el.setAttribute('aria-label', t[key]);
+  });
   populateStateSelect(lang, true);
   updateLangButtons(lang);
   try{
@@ -769,6 +809,7 @@ function applyLang(lang){
   if(lastSearch){ renderResults(lastSearch.stateAbbr, lastSearch.label, lang); }
   else { document.getElementById('locatedAs').textContent = t.find_results_default; }
   renderUpdates(lang);
+  renderUrgent(lang);
 }
 
 // ============== Live updates feed (data/updates.json) ==============
@@ -837,6 +878,51 @@ function renderUpdates(lang){
   }
 }
 
+// ============== Urgent alert banner (data/urgent.json) ==============
+let urgentData = null;
+
+function getDismissedId(){
+  try{ return window.localStorage.getItem('llm_dismissed_urgent_id'); }
+  catch(e){ return window.__dismissedUrgentId || null; } // in-memory fallback if storage is blocked
+}
+function setDismissedId(id){
+  try{ window.localStorage.setItem('llm_dismissed_urgent_id', id); }
+  catch(e){ window.__dismissedUrgentId = id; }
+}
+
+async function loadUrgent(){
+  try{
+    const res = await fetch('data/urgent.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('fetch failed: ' + res.status);
+    urgentData = await res.json();
+  }catch(e){
+    urgentData = null;
+  }
+  renderUrgent(currentLang);
+}
+
+function renderUrgent(lang){
+  const banner = document.getElementById('urgentBanner');
+  if(!banner || !urgentData || !urgentData.latest) { if(banner) banner.style.display='none'; return; }
+
+  const latest = urgentData.latest;
+  if(getDismissedId() === latest.id){ banner.style.display='none'; return; }
+
+  const t = I18N[lang];
+  const title = lang === 'es' ? (latest.title_es || latest.title_en) : latest.title_en;
+  const summary = lang === 'es' ? (latest.summary_es || latest.summary_en) : latest.summary_en;
+
+  document.getElementById('urgentBannerTitle').textContent = `${t.urgent_prefix} ${title}`;
+  document.getElementById('urgentBannerSummary').textContent = ' ' + (summary || '');
+  document.getElementById('urgentBannerLink').href = latest.url || '#';
+  banner.style.display = 'block';
+}
+
+document.getElementById('urgentBannerDismiss').addEventListener('click', function(){
+  if(urgentData && urgentData.latest){ setDismissedId(urgentData.latest.id); }
+  document.getElementById('urgentBanner').style.display = 'none';
+});
+
 document.getElementById('finderForm').addEventListener('submit', async function(e){
   e.preventDefault();
   const zip = document.getElementById('zipInput').value.trim();
@@ -890,6 +976,8 @@ document.getElementById('finderForm').addEventListener('submit', async function(
   }catch(e){}
   applyLang(initial);
   loadUpdates();
+  loadUrgent();
+  setInterval(loadUrgent, 5 * 60 * 1000); // re-check every 5 minutes while the page is open
 })();
 </script>
 </body>

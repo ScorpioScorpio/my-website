@@ -2,7 +2,7 @@ name: Update immigration news feed
 
 on:
   schedule:
-    # Every 1 hours. Adjust as you like — cron is in UTC.
+    # Every 6 hours. Adjust as you like — cron is in UTC.
     - cron: "15 */6 * * *"
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
 
@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,6 +35,7 @@ jobs:
         run: |
           git config user.name "feed-bot"
           git config user.email "actions@github.com"
+          git pull --rebase
           git add data/updates.json
           git diff --cached --quiet || git commit -m "Update immigration news feed [automated]"
           git push

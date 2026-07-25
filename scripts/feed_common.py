@@ -4,6 +4,7 @@ Used by both update_feed.py (full digest, every 6h) and check_urgent.py
 (fast new-item check, every 15 min).
 """
 
+import hashlib
 import os
 import sys
 
@@ -30,6 +31,11 @@ def get_client():
 def is_relevant(text):
     text_lower = text.lower()
     return any(k.lower() in text_lower for k in KEYWORDS)
+
+
+def stable_id(text):
+    """Deterministic id for an entry, unlike builtin hash() which is randomized per process."""
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
 
 
 def safe_summarize(client, text, max_length=90, min_length=25):

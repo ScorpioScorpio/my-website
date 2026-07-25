@@ -19,7 +19,7 @@ from pathlib import Path
 
 import feedparser
 
-from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders
+from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders, stable_id
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "urgent.json"
 MAX_SEEN_IDS_KEPT = 300     # just a memory of what we've already alerted on
@@ -84,7 +84,7 @@ def candidate_news():
                     continue
             entry_id = entry.get("id") or entry.get("link")
             items.append({
-                "id": f"news-{abs(hash(entry_id))}",
+                "id": f"news-{stable_id(entry_id)}",
                 "type": "news",
                 "title_en": title,
                 "date": datetime.now(timezone.utc).date().isoformat(),

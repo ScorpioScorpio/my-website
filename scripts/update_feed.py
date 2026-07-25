@@ -47,6 +47,8 @@ def fetch_eo_items():
     for r in results:
         title = r.get("title", "")
         abstract = r.get("abstract") or title
+        if not is_relevant(f"{title}. {abstract}"):
+            continue
         items.append({
             "id": f"eo-{r.get('document_number')}",
             "type": "executive_order",

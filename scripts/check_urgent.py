@@ -42,7 +42,9 @@ def load_existing():
 
 
 def candidate_executive_orders():
-    results = fetch_executive_orders(term="immigration", per_page=5)
+    # per_page is generous because the Federal Register API's term filter is a broad
+    # full-text match, not a topical one — most of what it returns gets dropped below.
+    results = fetch_executive_orders(term="immigration", per_page=20)
     cutoff = (datetime.now(timezone.utc) - timedelta(days=EO_LOOKBACK_DAYS)).date().isoformat()
     items = []
     for r in results:
@@ -50,6 +52,9 @@ def candidate_executive_orders():
         if date < cutoff:
             continue
         title = r.get("title", "")
+        abstract = r.get("abstract") or title
+        if not is_relevant(f"{title}. {abstract}"):
+            continue
         items.append({
             "id": f"eo-{r.get('document_number')}",
             "type": "executive_order",

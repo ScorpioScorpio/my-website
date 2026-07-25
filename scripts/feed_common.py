@@ -6,6 +6,7 @@ Used by both update_feed.py (full digest, every 6h) and check_urgent.py
 
 import hashlib
 import os
+import re
 import sys
 
 import requests
@@ -19,6 +20,14 @@ KEYWORDS = [
     "citizenship", "ICE", "DHS", "undocumented", "migrant", "naturaliz",
 ]
 
+# Word boundary required before each keyword (but not after, so stems like
+# "immigra" still match "immigration"/"immigrant") — plain substring matching
+# let short acronyms like "ICE" match inside unrelated words like "service".
+_KEYWORD_PATTERN = re.compile(
+    r"\b(?:" + "|".join(re.escape(k) for k in KEYWORDS) + ")",
+    re.IGNORECASE,
+)
+
 
 def get_client():
     token = os.environ.get("HF_TOKEN")
@@ -29,8 +38,7 @@ def get_client():
 
 
 def is_relevant(text):
-    text_lower = text.lower()
-    return any(k.lower() in text_lower for k in KEYWORDS)
+    return bool(_KEYWORD_PATTERN.search(text))
 
 
 def stable_id(text):

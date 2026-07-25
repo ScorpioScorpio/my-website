@@ -18,6 +18,7 @@ TRANSLATE_MODEL = "Helsinki-NLP/opus-mt-en-es"
 KEYWORDS = [
     "immigra", "asylum", "refugee", "deport", "border", "visa",
     "citizenship", "ICE", "DHS", "undocumented", "migrant", "naturaliz",
+    "alien",
 ]
 
 # Word boundary required before each keyword (but not after, so stems like

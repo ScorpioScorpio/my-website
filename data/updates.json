@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T23:35:35.697420+00:00",
+  "generated_at": "2026-07-25T23:37:20.664854+00:00",
   "items": [
     {
       "id": "news-7466420481188147376",
@@ -110,6 +110,17 @@
       "title_es": "Ensuring Citizenship Verification and Integrity in Federal Elections",
       "summary_en": "Ensuring Citizenship Verification and Integrity in Federal Elections",
       "summary_es": "Ensuring Citizenship Verification and Integrity in Federal Elections"
+    },
+    {
+      "id": "eo-2025-07789",
+      "type": "executive_order",
+      "date": "2025-04-28",
+      "url": "https://www.federalregister.gov/documents/2025/05/02/2025-07789/protecting-american-communities-from-criminal-aliens",
+      "source": "Federal Register (official)",
+      "title_en": "Protecting American Communities From Criminal Aliens",
+      "title_es": "Protecting American Communities From Criminal Aliens",
+      "summary_en": "Protecting American Communities From Criminal Aliens",
+      "summary_es": "Protecting American Communities From Criminal Aliens"
     }
   ]
 }

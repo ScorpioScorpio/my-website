@@ -13,7 +13,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders
+from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders_multi
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "updates.json"
 MAX_ITEMS_KEPT = 60
@@ -32,7 +32,7 @@ def load_existing():
 
 def fetch_eo_items():
     print("Fetching executive orders from Federal Register…")
-    results = fetch_executive_orders(term="immigration", per_page=20)
+    results = fetch_executive_orders_multi(per_page=20)
     items = []
     for r in results:
         title = r.get("title", "")

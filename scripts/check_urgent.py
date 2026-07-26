@@ -15,7 +15,7 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders
+from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders_multi
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "urgent.json"
 MAX_SEEN_IDS_KEPT = 300     # just a memory of what we've already alerted on
@@ -34,7 +34,7 @@ def load_existing():
 def candidate_executive_orders():
     # per_page is generous because the Federal Register API's term filter is a broad
     # full-text match, not a topical one — most of what it returns gets dropped below.
-    results = fetch_executive_orders(term="immigration", per_page=20)
+    results = fetch_executive_orders_multi(per_page=20)
     cutoff = (datetime.now(timezone.utc) - timedelta(days=EO_LOOKBACK_DAYS)).date().isoformat()
     items = []
     for r in results:

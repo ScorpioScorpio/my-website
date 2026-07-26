@@ -20,6 +20,11 @@ KEYWORDS = [
     "alien",
 ]
 
+# Separate Federal Register searches to run and merge, since its term filter is a
+# full-text match against a single phrase — an EO about e.g. asylum policy won't
+# surface from a search for "immigration" unless that word also appears in it.
+EO_SEARCH_TERMS = ["immigration", "asylum", "refugee", "deportation", "ICE"]
+
 # Word boundary required before each keyword (but not after, so stems like
 # "immigra" still match "immigration"/"immigrant") — plain substring matching
 # let short acronyms like "ICE" match inside unrelated words like "service".
@@ -87,3 +92,15 @@ def fetch_executive_orders(term="immigration", per_page=20):
     except Exception as e:
         print(f"  [error] Federal Register fetch failed: {e}", file=sys.stderr)
         return []
+
+
+def fetch_executive_orders_multi(terms=EO_SEARCH_TERMS, per_page=20):
+    """Runs fetch_executive_orders once per term and merges the results, deduped by
+    document number, newest first."""
+    by_doc_number = {}
+    for term in terms:
+        for r in fetch_executive_orders(term=term, per_page=per_page):
+            by_doc_number[r.get("document_number")] = r
+    results = list(by_doc_number.values())
+    results.sort(key=lambda r: r.get("signing_date") or r.get("publication_date") or "", reverse=True)
+    return results

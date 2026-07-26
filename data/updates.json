@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26T03:52:45.392101+00:00",
+  "generated_at": "2026-07-26T05:29:28.784409+00:00",
   "items": [
     {
       "id": "eo-2026-06601",
@@ -22,6 +22,116 @@
       "title_es": "Protecting American Communities From Criminal Aliens",
       "summary_en": "Protecting American Communities From Criminal Aliens",
       "summary_es": "Protecting American Communities From Criminal Aliens"
+    },
+    {
+      "id": "eo-2025-03137",
+      "type": "executive_order",
+      "date": "2025-02-19",
+      "url": "https://www.federalregister.gov/documents/2025/02/25/2025-03137/ending-taxpayer-subsidization-of-open-borders",
+      "source": "Federal Register (official)",
+      "title_en": "Ending Taxpayer Subsidization of Open Borders",
+      "title_es": "Ending Taxpayer Subsidization of Open Borders",
+      "summary_en": "Ending Taxpayer Subsidization of Open Borders",
+      "summary_es": "Ending Taxpayer Subsidization of Open Borders"
+    },
+    {
+      "id": "eo-2025-02011",
+      "type": "executive_order",
+      "date": "2025-01-20",
+      "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02011/realigning-the-united-states-refugee-admissions-program",
+      "source": "Federal Register (official)",
+      "title_en": "Realigning the United States Refugee Admissions Program",
+      "title_es": "Realigning the United States Refugee Admissions Program",
+      "summary_en": "Realigning the United States Refugee Admissions Program",
+      "summary_es": "Realigning the United States Refugee Admissions Program"
+    },
+    {
+      "id": "eo-2021-02804",
+      "type": "executive_order",
+      "date": "2021-02-04",
+      "url": "https://www.federalregister.gov/documents/2021/02/09/2021-02804/rebuilding-and-enhancing-programs-to-resettle-refugees-and-planning-for-the-impact-of-climate-change",
+      "source": "Federal Register (official)",
+      "title_en": "Rebuilding and Enhancing Programs To Resettle Refugees and Planning for the Impact of Climate Change on Migration",
+      "title_es": "Rebuilding and Enhancing Programs To Resettle Refugees and Planning for the Impact of Climate Change on Migration",
+      "summary_en": "Rebuilding and Enhancing Programs To Resettle Refugees and Planning for the Impact of Climate Change on Migration",
+      "summary_es": "Rebuilding and Enhancing Programs To Resettle Refugees and Planning for the Impact of Climate Change on Migration"
+    },
+    {
+      "id": "eo-2021-02561",
+      "type": "executive_order",
+      "date": "2021-02-02",
+      "url": "https://www.federalregister.gov/documents/2021/02/05/2021-02561/creating-a-comprehensive-regional-framework-to-address-the-causes-of-migration-to-manage-migration",
+      "source": "Federal Register (official)",
+      "title_en": "Creating a Comprehensive Regional Framework To Address the Causes of Migration, To Manage Migration Throughout North and Central America, and To Provide Safe and Orderly Processing of Asylum Seekers at the United States Border",
+      "title_es": "Creating a Comprehensive Regional Framework To Address the Causes of Migration, To Manage Migration Throughout North and Central America, and To Provide Safe and Orderly Processing of Asylum Seekers at the United States Border",
+      "summary_en": "Creating a Comprehensive Regional Framework To Address the Causes of Migration, To Manage Migration Throughout North and Central America, and To Provide Safe and Orderly Processing of Asylum Seekers at the United States Border",
+      "summary_es": "Creating a Comprehensive Regional Framework To Address the Causes of Migration, To Manage Migration Throughout North and Central America, and To Provide Safe and Orderly Processing of Asylum Seekers at the United States Border"
+    },
+    {
+      "id": "eo-2021-02563",
+      "type": "executive_order",
+      "date": "2021-02-02",
+      "url": "https://www.federalregister.gov/documents/2021/02/05/2021-02563/restoring-faith-in-our-legal-immigration-systems-and-strengthening-integration-and-inclusion-efforts",
+      "source": "Federal Register (official)",
+      "title_en": "Restoring Faith in Our Legal Immigration Systems and Strengthening Integration and Inclusion Efforts for New Americans",
+      "title_es": "Restoring Faith in Our Legal Immigration Systems and Strengthening Integration and Inclusion Efforts for New Americans",
+      "summary_en": "Restoring Faith in Our Legal Immigration Systems and Strengthening Integration and Inclusion Efforts for New Americans",
+      "summary_es": "Restoring Faith in Our Legal Immigration Systems and Strengthening Integration and Inclusion Efforts for New Americans"
+    },
+    {
+      "id": "eo-2019-21505",
+      "type": "executive_order",
+      "date": "2019-09-26",
+      "url": "https://www.federalregister.gov/documents/2019/10/01/2019-21505/enhancing-state-and-local-involvement-in-refugee-resettlement",
+      "source": "Federal Register (official)",
+      "title_en": "Enhancing State and Local Involvement in Refugee Resettlement",
+      "title_es": "Enhancing State and Local Involvement in Refugee Resettlement",
+      "summary_en": "Enhancing State and Local Involvement in Refugee Resettlement",
+      "summary_es": "Enhancing State and Local Involvement in Refugee Resettlement"
+    },
+    {
+      "id": "eo-2019-15222",
+      "type": "executive_order",
+      "date": "2019-07-11",
+      "url": "https://www.federalregister.gov/documents/2019/07/16/2019-15222/collecting-information-about-citizenship-status-in-connection-with-the-decennial-census",
+      "source": "Federal Register (official)",
+      "title_en": "Collecting Information About Citizenship Status in Connection With the Decennial Census",
+      "title_es": "Collecting Information About Citizenship Status in Connection With the Decennial Census",
+      "summary_en": "Collecting Information About Citizenship Status in Connection With the Decennial Census",
+      "summary_es": "Collecting Information About Citizenship Status in Connection With the Decennial Census"
+    },
+    {
+      "id": "eo-2017-23630",
+      "type": "executive_order",
+      "date": "2017-10-24",
+      "url": "https://www.federalregister.gov/documents/2017/10/27/2017-23630/resuming-the-united-states-refugee-admissions-program-with-enhanced-vetting-capabilities",
+      "source": "Federal Register (official)",
+      "title_en": "Resuming the United States Refugee Admissions Program With Enhanced Vetting Capabilities",
+      "title_es": "Resuming the United States Refugee Admissions Program With Enhanced Vetting Capabilities",
+      "summary_en": "Resuming the United States Refugee Admissions Program With Enhanced Vetting Capabilities",
+      "summary_es": "Resuming the United States Refugee Admissions Program With Enhanced Vetting Capabilities"
+    },
+    {
+      "id": "eo-2017-02095",
+      "type": "executive_order",
+      "date": "2017-01-25",
+      "url": "https://www.federalregister.gov/documents/2017/01/30/2017-02095/border-security-and-immigration-enforcement-improvements",
+      "source": "Federal Register (official)",
+      "title_en": "Border Security and Immigration Enforcement Improvements",
+      "title_es": "Border Security and Immigration Enforcement Improvements",
+      "summary_en": "Border Security and Immigration Enforcement Improvements",
+      "summary_es": "Border Security and Immigration Enforcement Improvements"
+    },
+    {
+      "id": "eo-96-3646",
+      "type": "executive_order",
+      "date": "1996-02-13",
+      "url": "https://www.federalregister.gov/documents/1996/02/15/96-3646/economy-and-efficiency-in-government-procurement-through-compliance-with-certain-immigration-and",
+      "source": "Federal Register (official)",
+      "title_en": "Economy and Efficiency in Government Procurement Through Compliance With Certain Immigration and Naturalization Act Provisions",
+      "title_es": "Economy and Efficiency in Government Procurement Through Compliance With Certain Immigration and Naturalization Act Provisions",
+      "summary_en": "Economy and Efficiency in Government Procurement Through Compliance With Certain Immigration and Naturalization Act Provisions",
+      "summary_es": "Economy and Efficiency in Government Procurement Through Compliance With Certain Immigration and Naturalization Act Provisions"
     }
   ]
 }

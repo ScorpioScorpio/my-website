@@ -3,6 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["main"]
+  workflow_run:
+    # The feed workflows commit with GITHUB_TOKEN, and pushes made with that
+    # token don't trigger other workflows' `push` events (GitHub's anti-loop
+    # protection) — so without this, their commits would never actually go live.
+    workflows: ["Update immigration news feed", "Check for urgent immigration alerts"]
+    types: [completed]
 
 permissions:
   contents: read
@@ -15,6 +21,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

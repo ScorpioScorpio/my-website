@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """
 Urgent check (every 15 minutes): a fast, narrow scan for anything
-genuinely NEW — a freshly published executive order, or a very recent
-DHS/USCIS press item — that hasn't been seen before. Only calls Hugging
-Face when something new is actually found, so it stays cheap to run
-this often. Writes data/urgent.json, which the site polls to show a
-dismissible alert banner.
+genuinely NEW — a freshly published executive order — that hasn't been
+seen before. Only calls Hugging Face when something new is actually
+found, so it stays cheap to run this often. Writes data/urgent.json,
+which the site polls to show a dismissible alert banner.
 
 This is deliberately separate from update_feed.py (the full 6-hour
 digest): that job does a broad sweep and rebuilds the whole list; this
@@ -13,23 +12,14 @@ one only ever asks "is there something brand new right now?"
 """
 
 import json
-import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-import feedparser
-
-from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders, stable_id
+from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "urgent.json"
 MAX_SEEN_IDS_KEPT = 300     # just a memory of what we've already alerted on
 EO_LOOKBACK_DAYS = 3        # Federal Register dates are day-granularity, not timestamped
-
-# Fast-moving sources worth checking every 15 minutes (skip the slower ImmigrationImpact feed here)
-URGENT_RSS_FEEDS = [
-    "https://www.uscis.gov/news/rss-feeds/all-news",
-    "https://www.dhs.gov/news-releases/press-releases/feed",
-]
 
 
 def load_existing():
@@ -67,44 +57,11 @@ def candidate_executive_orders():
     return items
 
 
-def candidate_news():
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=12)
-    items = []
-    for feed_url in URGENT_RSS_FEEDS:
-        try:
-            parsed = feedparser.parse(feed_url)
-        except Exception as e:
-            print(f"  [warn] could not read {feed_url}: {e}", file=sys.stderr)
-            continue
-        source_name = parsed.feed.get("title", feed_url)
-        for entry in parsed.entries[:10]:
-            title = entry.get("title", "")
-            summary_raw = entry.get("summary", "") or title
-            if not is_relevant(f"{title}. {summary_raw}"):
-                continue
-            published_parsed = entry.get("published_parsed")
-            if published_parsed:
-                pub_dt = datetime(*published_parsed[:6], tzinfo=timezone.utc)
-                if pub_dt < cutoff:
-                    continue
-            entry_id = entry.get("id") or entry.get("link")
-            items.append({
-                "id": f"news-{stable_id(entry_id)}",
-                "type": "news",
-                "title_en": title,
-                "date": datetime.now(timezone.utc).date().isoformat(),
-                "url": entry.get("link"),
-                "source": source_name,
-                "raw_text": summary_raw,
-            })
-    return items
-
-
 def main():
     existing = load_existing()
     seen_ids = set(existing.get("seen_ids", []))
 
-    candidates = candidate_executive_orders() + candidate_news()
+    candidates = candidate_executive_orders()
     new_items = [c for c in candidates if c["id"] not in seen_ids]
 
     output = {
@@ -120,8 +77,6 @@ def main():
         return
 
     # Only summarize/translate the single most important new item to stay fast + cheap.
-    # (Executive orders take priority over news if both showed up in the same run.)
-    new_items.sort(key=lambda x: 0 if x["type"] == "executive_order" else 1)
     top = new_items[0]
     print(f"New urgent item: {top['title_en'][:70]}")
 

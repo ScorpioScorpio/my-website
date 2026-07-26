@@ -1,32 +1,22 @@
 #!/usr/bin/env python3
 """
 Full digest run (every 6 hours): fetches recent immigration-related
-executive orders (Federal Register API) and immigration news (RSS feeds),
-summarizes + translates each new item with Hugging Face models, and
-writes/updates data/updates.json.
+executive orders (Federal Register API), summarizes + translates each
+new item with Hugging Face models, and writes/updates data/updates.json.
 
 Safe to run repeatedly: it skips items already present in updates.json,
 so only genuinely new items cost an API call.
 """
 
 import json
-import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-import feedparser
-
-from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders, stable_id
+from feed_common import get_client, is_relevant, safe_summarize, safe_translate, fetch_executive_orders
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "updates.json"
 MAX_ITEMS_KEPT = 60
-
-RSS_FEEDS = [
-    "https://www.uscis.gov/news/rss-feeds/all-news",
-    "https://www.dhs.gov/news-releases/press-releases/feed",
-    "https://immigrationimpact.com/feed/",
-]
 
 client = get_client()
 
@@ -61,46 +51,11 @@ def fetch_eo_items():
     return items
 
 
-def fetch_news():
-    print("Fetching immigration news from RSS feeds…")
-    items = []
-    for feed_url in RSS_FEEDS:
-        try:
-            parsed = feedparser.parse(feed_url)
-        except Exception as e:
-            print(f"  [warn] could not read {feed_url}: {e}", file=sys.stderr)
-            continue
-
-        source_name = parsed.feed.get("title", feed_url)
-        for entry in parsed.entries[:15]:
-            title = entry.get("title", "")
-            summary_raw = entry.get("summary", "") or title
-            combined = f"{title}. {summary_raw}"
-            if not is_relevant(combined):
-                continue
-            entry_id = entry.get("id") or entry.get("link")
-            published_parsed = entry.get("published_parsed")
-            if published_parsed:
-                date_str = datetime(*published_parsed[:6], tzinfo=timezone.utc).date().isoformat()
-            else:
-                date_str = datetime.now(timezone.utc).date().isoformat()
-            items.append({
-                "id": f"news-{stable_id(entry_id)}",
-                "type": "news",
-                "title_en": title,
-                "date": date_str,
-                "url": entry.get("link"),
-                "source": source_name,
-                "raw_text": summary_raw,
-            })
-    return items
-
-
 def main():
     existing = load_existing()
     existing_ids = {item["id"] for item in existing.get("items", [])}
 
-    candidates = fetch_eo_items() + fetch_news()
+    candidates = fetch_eo_items()
     new_items = [c for c in candidates if c["id"] not in existing_ids]
 
     print(f"Found {len(candidates)} candidate items, {len(new_items)} are new.")
